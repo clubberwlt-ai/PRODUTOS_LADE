@@ -1366,3 +1366,4 @@ main.container {
 }
 
 .pages-aviso .btn { margin-top: 0.5rem; padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+.pages-aviso { bottom: auto; top: 5rem; }
