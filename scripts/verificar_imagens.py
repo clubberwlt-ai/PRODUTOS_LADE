@@ -1,3 +1,5 @@
+import os as _os
+_os.chdir(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # roda a partir da raiz do repo
 import json
 
 with open('produtos/catalogo.json', encoding='utf-8') as f:

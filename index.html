@@ -88,8 +88,14 @@
     <div id="product-modal" class="modal hidden">
         <div class="modal-content">
             <button id="close-modal" class="modal-close" aria-label="Fechar">&times;</button>
-            <div class="modal-image">
-                <img id="modal-img" src="" alt="">
+            <div class="modal-image gallery">
+                <div class="gallery-main">
+                    <button type="button" id="gallery-prev" class="gallery-nav gallery-prev" aria-label="Foto anterior">&#8249;</button>
+                    <img id="modal-img" src="" alt="" title="Clique para ampliar">
+                    <button type="button" id="gallery-next" class="gallery-nav gallery-next" aria-label="Próxima foto">&#8250;</button>
+                    <span id="gallery-counter" class="gallery-counter"></span>
+                </div>
+                <div id="gallery-thumbs" class="gallery-thumbs" role="tablist" aria-label="Miniaturas"></div>
             </div>
             <div class="modal-body">
                 <span id="modal-category" class="badge"></span>
@@ -108,7 +114,6 @@
         </div>
     </div>
 
-    <script src="assets/js/app.js"></script>
 
     <!-- Modal Edição -->
     <div id="edit-modal" class="modal hidden">
@@ -140,8 +145,23 @@
                     <input type="text" id="edit-unidade">
                 </div>
                 <div class="form-group">
-                    <label for="edit-url-imagem">URL da Imagem</label>
-                    <input type="url" id="edit-url-imagem" placeholder="https://exemplo.com/imagem.jpg">
+                    <label>Fotos <span id="edit-fotos-contador" class="text-small"></span></label>
+                    <div id="edit-galeria" class="edit-galeria"></div>
+                    <p id="edit-fotos-aviso" class="text-small fotos-aviso hidden"></p>
+                    <div class="edit-galeria-acoes">
+                        <label class="btn btn-outline btn-upload">
+                            Enviar fotos
+                            <input type="file" id="edit-fotos" accept="image/jpeg,image/png,image/webp" multiple hidden>
+                        </label>
+                        <span class="text-small">JPG, PNG ou WEBP · até 10 por item · redimensionadas para 1600px</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-url-imagem">Adicionar foto por URL externa</label>
+                    <div class="input-com-botao">
+                        <input type="url" id="edit-url-imagem" placeholder="https://exemplo.com/imagem.jpg">
+                        <button type="button" id="edit-add-url" class="btn btn-outline">Adicionar</button>
+                    </div>
                 </div>
                 <div class="form-actions">
                     <button type="button" id="apagar-item" class="btn btn-danger">Apagar Item</button>
@@ -212,9 +232,28 @@
         </div>
     </div>
 
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+        <button type="button" id="lightbox-close" class="modal-close" aria-label="Fechar">&times;</button>
+        <button type="button" id="lightbox-prev" class="gallery-nav gallery-prev" aria-label="Foto anterior">&#8249;</button>
+        <img id="lightbox-img" src="" alt="">
+        <button type="button" id="lightbox-next" class="gallery-nav gallery-next" aria-label="Próxima foto">&#8250;</button>
+        <span id="lightbox-counter" class="gallery-counter"></span>
+    </div>
+
+    <div id="pages-aviso" class="pages-aviso hidden" role="status">
+        <strong>GitHub Pages é somente leitura.</strong>
+        Alterações e fotos novas ficam só neste navegador. Use <em>Baixar pacote</em> e faça commit do
+        <code>catalogo.json</code> e da pasta <code>produtos/imagens/</code> no repositório.
+        <span id="pages-pendentes"></span>
+        <button type="button" id="descartar-locais" class="btn btn-outline btn-sm">Descartar alterações locais</button>
+    </div>
+
     <div id="toast" class="toast hidden">Salvo com sucesso!</div>
+    <button id="download-pacote" class="download-btn download-pacote hidden">Baixar pacote (ZIP)</button>
     <button id="download-json" class="download-btn hidden">Baixar JSON Editado</button>
     <input type="file" id="import-json" class="hidden" accept=".json">
     <button id="import-json-btn" class="download-btn hidden">Importar JSON</button>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
