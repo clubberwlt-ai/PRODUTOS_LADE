@@ -34,3 +34,6 @@ jobs:
 
       - name: Sintaxe JavaScript
         run: node --check assets/js/app.js
+
+      - name: Testes de lógica da galeria
+        run: node tests/galeria.test.js
