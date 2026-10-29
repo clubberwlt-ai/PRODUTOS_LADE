@@ -1,0 +1,14 @@
+# Arquivos locais que não vão para o repositório público
+produtos/backups/
+*.xlsx
+salvar.php
+
+# Temporários e sistema
+*.tmp
+*.bak
+tmp-preview.html
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
