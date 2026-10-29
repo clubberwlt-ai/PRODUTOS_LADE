@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os as _os
+_os.chdir(_os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))))  # roda a partir da raiz do repo
 """
 Diagnóstico do Catálogo LADE - Google Apps Script
 Execute: python diagnostico.py
