@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validar catalogo.json
+        run: python scripts/validar_catalogo.py
+
+      - name: Compilar scripts Python
+        run: python -m py_compile servidor.py $(git ls-files 'scripts/*.py' 'scripts/**/*.py')
+
+      - name: Sintaxe PHP
+        run: |
+          for f in salvar.example.php upload.example.php; do php -l "$f"; done
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sintaxe JavaScript
+        run: node --check assets/js/app.js
