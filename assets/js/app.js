@@ -154,6 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return ['localhost', '127.0.0.1'].includes(window.location.hostname);
     }
 
+    function ehGitHubPages() {
+        return /\.github\.io$/i.test(window.location.hostname);
+    }
+
     function pedirSenhaEdicao() {
         let senha = sessionStorage.getItem(SENHA_KEY);
         if (!senha) {
@@ -181,6 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Servidor local não disponível:', err);
                 mostrarToast('Servidor local não rodando. Salvo apenas no navegador.');
             }
+            return;
+        }
+
+        if (ehGitHubPages()) {
+            mostrarToast('Demonstração no GitHub Pages: alteração salva só no navegador. Use "Baixar JSON".');
             return;
         }
 
