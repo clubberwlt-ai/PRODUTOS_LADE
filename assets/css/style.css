@@ -1218,6 +1218,23 @@ main.container {
     gap: 0.6rem;
 }
 
+.url-video-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.url-video-group input {
+    flex: 1;
+    min-width: 0;
+}
+
+.url-video-group .btn-sm {
+    flex-shrink: 0;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
 .galeria-preview {
     display: flex;
     flex-wrap: wrap;

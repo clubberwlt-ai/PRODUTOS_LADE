@@ -480,19 +480,6 @@
   },
   {
     "Categoria": "Som",
-    "Equipamento": "PA Evolve 50M - 4 colunas",
-    "Marca/Modelo": "Electro-Voice Evolve 50M",
-    "Descrição/Observações": "Kit: 2 mic s/fio, mesa, notebook c/ playlist, front fill, cabeamento | Foyer",
-    "Qtd máxima usada em um romaneio": 0,
-    "Unidade": "DR",
-    "Romaneios onde aparece": "Agro Sol 2026 - Plenárias (Prop. 7597); Som e luz Plenária 19-09 (Prop. 1035/5, 2023)",
-    "Imagem": null,
-    "URL da imagem / fonte": "[modelo] imagem: https://cdn.shopify.com/s/files/1/0711/4558/6984/files/electro-voice-evolve-50m-portable-column-pa-system-1000w-powered-with-built-in-mixer-bluetooth-3987677.jpg | fonte: https://ev-entz.co.uk/products/electro-voice-evolve-50m-portable-column-pa-system-1000w-powered-with-built-in-mixer-bluetooth",
-    "Cidade": "Sorriso",
-    "id": "item17_sorriso"
-  },
-  {
-    "Categoria": "Som",
     "Equipamento": "PA FZ 2402 02x04",
     "Marca/Modelo": "FZ 2402",
     "Descrição/Observações": "Palestras + DJ, mesa e 2 mic s/fio",
@@ -503,19 +490,6 @@
     "URL da imagem / fonte": "[imagem encontrada] imagem: https://www.fzaudio.com.br/_files/ugd/afe2f8_b41102d6d44f4542be4bd818ae978895.pdf",
     "Cidade": "Cuiabá",
     "id": "item18_cuiabá"
-  },
-  {
-    "Categoria": "Som",
-    "Equipamento": "PA FZ 2402 02x04",
-    "Marca/Modelo": "FZ 2402",
-    "Descrição/Observações": "Palestras + DJ, mesa e 2 mic s/fio",
-    "Qtd máxima usada em um romaneio": 1,
-    "Unidade": "DR",
-    "Romaneios onde aparece": "Castrillon/Odara - Som, luz de palco e decorativa (Prop. 7613)",
-    "Imagem": "https://www.fzaudio.com.br/_files/ugd/afe2f8_b41102d6d44f4542be4bd818ae978895.pdf",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://www.fzaudio.com.br/_files/ugd/afe2f8_b41102d6d44f4542be4bd818ae978895.pdf",
-    "Cidade": "Sorriso",
-    "id": "item18_sorriso"
   },
   {
     "Categoria": "Som",
@@ -555,19 +529,6 @@
     "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=PA+MK+System",
     "Cidade": "Cuiabá",
     "id": "item20_cuiabá"
-  },
-  {
-    "Categoria": "Som",
-    "Equipamento": "PA MK System 02x04",
-    "Marca/Modelo": "MK System [escaneado - incerto]",
-    "Descrição/Observações": "Música ao vivo; 2 mic s/fio ULX Shure bastão, mic c/fio, mesa, notebook",
-    "Qtd máxima usada em um romaneio": 0,
-    "Unidade": "DR",
-    "Romaneios onde aparece": "Agro Sol 2026 - Prainha (Prop. 7603)",
-    "Imagem": "https://via.placeholder.com/400x300?text=PA+MK+System",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=PA+MK+System",
-    "Cidade": "Sorriso",
-    "id": "item20_sorriso"
   },
   {
     "Categoria": "Som",
@@ -662,19 +623,6 @@
   },
   {
     "Categoria": "Luz",
-    "Equipamento": "COB Klub Pro 240V",
-    "Marca/Modelo": "Equip. Odara",
-    "Descrição/Observações": "Luz de frente",
-    "Qtd máxima usada em um romaneio": 4,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Castrillon/Odara - Som, luz de palco e decorativa (Prop. 7613)",
-    "Imagem": "https://via.placeholder.com/400x300?text=COB+Klub+Pro+240V",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=COB+Klub+Pro+240V",
-    "Cidade": "Sorriso",
-    "id": "item24_sorriso"
-  },
-  {
-    "Categoria": "Luz",
     "Equipamento": "COB LED 100W",
     "Marca/Modelo": "Pro Light",
     "Descrição/Observações": "Luz de palco em treliça | Ambientação interna | Foyer",
@@ -740,19 +688,6 @@
   },
   {
     "Categoria": "Luz",
-    "Equipamento": "Elipsoidal",
-    "Marca/Modelo": "Peer Light",
-    "Descrição/Observações": "Foyer",
-    "Qtd máxima usada em um romaneio": 9,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Som e luz Plenária 19-09 (Prop. 1035/5, 2023)",
-    "Imagem": null,
-    "URL da imagem / fonte": "[REPRESENTATIVA (elipsoidal genérico; Peer Light não encontrado)] imagem: https://cdn.shopify.com/s/files/1/0638/6886/2639/products/3_125.jpg | fonte: https://djbandsupply.com/products/american-dj-encore-profile-pro-ww-led-ellipsoidal",
-    "Cidade": "Sorriso",
-    "id": "item27_sorriso"
-  },
-  {
-    "Categoria": "Luz",
     "Equipamento": "Elipsoidal de LED",
     "Marca/Modelo": null,
     "Descrição/Observações": "Ambientação interna | Plenária",
@@ -766,19 +701,6 @@
   },
   {
     "Categoria": "Luz",
-    "Equipamento": "Elipsoidal de LED",
-    "Marca/Modelo": null,
-    "Descrição/Observações": "Ambientação interna | Plenária",
-    "Qtd máxima usada em um romaneio": 4,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Iveco - Som, luz, projeção, captação e luz decorativa (Prop. 6517); Som e luz Plenária 19-09 (Prop. 1035/5, 2023)",
-    "Imagem": null,
-    "URL da imagem / fonte": "[REPRESENTATIVA (ADJ Encore Profile Pro)] imagem: https://cdn.shopify.com/s/files/1/0638/6886/2639/products/3_125.jpg | fonte: https://djbandsupply.com/products/american-dj-encore-profile-pro-ww-led-ellipsoidal",
-    "Cidade": "Sorriso",
-    "id": "item28_sorriso"
-  },
-  {
-    "Categoria": "Luz",
     "Equipamento": "Luz decorativa Ágora/Gran I e II/corredor/foyer (pacote: 65 PAR LED + 66 wash)",
     "Marca/Modelo": "Equip. Odara",
     "Descrição/Observações": "Dois primeiros dias",
@@ -789,19 +711,6 @@
     "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=PAR+LED+RGBW+Wash",
     "Cidade": "Cuiabá",
     "id": "item29_cuiabá"
-  },
-  {
-    "Categoria": "Luz",
-    "Equipamento": "Luz decorativa Ágora/Gran I e II/corredor/foyer (pacote: 65 PAR LED + 66 wash)",
-    "Marca/Modelo": "Equip. Odara",
-    "Descrição/Observações": "Dois primeiros dias",
-    "Qtd máxima usada em um romaneio": 0,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Castrillon/Odara - Som, luz de palco e decorativa (Prop. 7613)",
-    "Imagem": "https://via.placeholder.com/400x300?text=PAR+LED+RGBW+Wash",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=PAR+LED+RGBW+Wash",
-    "Cidade": "Sorriso",
-    "id": "item29_sorriso"
   },
   {
     "Categoria": "Luz",
@@ -1311,19 +1220,6 @@
     "id": "item49_cuiabá"
   },
   {
-    "Categoria": "Projeção",
-    "Equipamento": "Totem de LED P1.8 indoor 0,64x1,92m",
-    "Marca/Modelo": null,
-    "Descrição/Observações": "Locação de totens",
-    "Qtd máxima usada em um romaneio": 1,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Iveco - Totens (Prop. 6869)",
-    "Imagem": "https://audioeffetti.com/en/category/video/led-walls/ego-display-totem01-p1-86i-foldable-led-totem-1-86-mm-pixel-pitch-gob-protection-640-1920-mm-display-size-600-cd-m2-brightness-full-mobile-pc-control-ip40-supplied-in-a-single-compartment-flight-case-p213145",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://audioeffetti.com/en/category/video/led-walls/ego-display-totem01-p1-86i-foldable-led-totem-1-86-mm-pixel-pitch-gob-protection-640-1920-mm-display-size-600-cd-m2-brightness-full-mobile-pc-control-ip40-supplied-in-a-single-compartment-flight-case-p213145",
-    "Cidade": "Sorriso",
-    "id": "item49_sorriso"
-  },
-  {
     "Categoria": "Vídeo/Captação",
     "Equipamento": "Câmera profissional Full HD",
     "Marca/Modelo": "Sony NX5R",
@@ -1361,19 +1257,6 @@
     "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=Estacao+de+Transmissao",
     "Cidade": "Cuiabá",
     "id": "item51_cuiabá"
-  },
-  {
-    "Categoria": "Vídeo/Captação",
-    "Equipamento": "Estação de transmissão",
-    "Marca/Modelo": "Avell Storm 490 Black + placa de captura NeoID",
-    "Descrição/Observações": "Componente (qtd inferida)",
-    "Qtd máxima usada em um romaneio": 0,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Iveco - Som, luz, projeção, captação e luz decorativa (Prop. 6517)",
-    "Imagem": "https://via.placeholder.com/400x300?text=Estacao+de+Transmissao",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=Estacao+de+Transmissao",
-    "Cidade": "Sorriso",
-    "id": "item51_sorriso"
   },
   {
     "Categoria": "Vídeo/Captação",
@@ -1572,19 +1455,6 @@
   },
   {
     "Categoria": "Estrutura",
-    "Equipamento": "Carpete para forração",
-    "Marca/Modelo": null,
-    "Descrição/Observações": "Forração preta do avanço",
-    "Qtd máxima usada em um romaneio": 4,
-    "Unidade": "MT",
-    "Romaneios onde aparece": "Iveco - Estrutura luau e cue light (Prop. 6877)",
-    "Imagem": "https://via.placeholder.com/400x300?text=Carpete+Preto+Evento",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=Carpete+Preto+Evento",
-    "Cidade": "Sorriso",
-    "id": "item59_sorriso"
-  },
-  {
-    "Categoria": "Estrutura",
     "Equipamento": "Envelopamento de treliça Q25",
     "Marca/Modelo": "Equip. Odara",
     "Descrição/Observações": "Cobertura de treliças aparentes",
@@ -1650,19 +1520,6 @@
   },
   {
     "Categoria": "Estrutura",
-    "Equipamento": "Fechamento housemix alumínio 8 placas",
-    "Marca/Modelo": null,
-    "Descrição/Observações": "Fechamento equipe técnica",
-    "Qtd máxima usada em um romaneio": 0,
-    "Unidade": "UN",
-    "Romaneios onde aparece": "Agro Sol 2026 - Plenárias (Prop. 7597); Castrillon/Odara - Som, luz de palco e decorativa (Prop. 7613)",
-    "Imagem": "https://via.placeholder.com/400x300?text=Fechamento+Housemix+Aluminio",
-    "URL da imagem / fonte": "[imagem encontrada] imagem: https://via.placeholder.com/400x300?text=Fechamento+Housemix+Aluminio",
-    "Cidade": "Sorriso",
-    "id": "item62_sorriso"
-  },
-  {
-    "Categoria": "Estrutura",
     "Equipamento": "Praticável telescópico 2x1",
     "Marca/Modelo": null,
     "Descrição/Observações": "Avanço de palco 6x2m",
@@ -1725,18 +1582,5 @@
     "galeria": [],
     "id": "1793399215014_cuiabá",
     "Qtd máxima usada em um romaneio": 0
-  },
-  {
-    "Equipamento": "som",
-    "Marca/Modelo": "teste",
-    "Categoria": "Luz",
-    "Cidade": "Sorriso",
-    "Descrição/Observações": "teste",
-    "Unidade": "12",
-    "URL da imagem / fonte": "",
-    "Imagem": "",
-    "galeria": [],
-    "id": "1793399215014_sorriso",
-    "Qtd máxima usada em um romaneio": 1
   }
 ]

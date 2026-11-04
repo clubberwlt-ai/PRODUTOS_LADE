@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const editCapaPreview = document.getElementById('edit-capa-preview');
     const editGaleriaInput = document.getElementById('edit-galeria');
     const editGaleriaPreview = document.getElementById('edit-galeria-preview');
+    const editUrlVideo = document.getElementById('edit-url-video');
+    const editAddVideoBtn = document.getElementById('edit-add-video');
     const toast = document.getElementById('toast');
     const downloadJsonBtn = document.getElementById('download-json');
 
@@ -70,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const addCapaPreview = document.getElementById('add-capa-preview');
     const addGaleriaInput = document.getElementById('add-galeria');
     const addGaleriaPreview = document.getElementById('add-galeria-preview');
+    const addUrlVideo = document.getElementById('add-url-video');
+    const addAddVideoBtn = document.getElementById('add-add-video');
 
     // Gerenciar cidades
     const cidadesBtn = document.getElementById('cidades-btn');
@@ -190,6 +194,81 @@ document.addEventListener('DOMContentLoaded', () => {
         return tipo === 'video' ? '🎥' : '📷';
     }
 
+    // Detecta link de vídeo externo (YouTube/Vimeo) e devolve URL de embed + miniatura
+    function extrairVideoEmbed(url) {
+        if (!url || typeof url !== 'string') return null;
+        const u = url.trim();
+        let m;
+        m = u.match(/(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i);
+        if (m) {
+            return {
+                id: m[1],
+                embed: `https://www.youtube.com/embed/${m[1]}`,
+                thumb: `https://img.youtube.com/vi/${m[1]}/mqdefault.jpg`,
+            };
+        }
+        m = u.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+        if (m) {
+            return { id: m[1], embed: `https://player.vimeo.com/video/${m[1]}`, thumb: null };
+        }
+        return null;
+    }
+
+    function ehLinkVideoExterno(url) {
+        return !!extrairVideoEmbed(url);
+    }
+
+    // Redimensiona/comprime a foto para não inflar o repositório (WebP ≤1280px, ≤150KB)
+    function carregarBitmap(arquivo) {
+        if (window.createImageBitmap) return createImageBitmap(arquivo);
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            const objUrl = URL.createObjectURL(arquivo);
+            img.onload = () => { URL.revokeObjectURL(objUrl); resolve(img); };
+            img.onerror = () => { URL.revokeObjectURL(objUrl); reject(new Error('falha ao carregar imagem')); };
+            img.src = objUrl;
+        });
+    }
+
+    function canvasParaBlob(canvas, tipo, qualidade) {
+        return new Promise((resolve) => canvas.toBlob(resolve, tipo, qualidade));
+    }
+
+    async function otimizarImagem(arquivo) {
+        if (!arquivo || !arquivo.type || !arquivo.type.startsWith('image/')) return arquivo;
+        if (arquivo.type === 'image/gif') return arquivo;
+        try {
+            const bitmap = await carregarBitmap(arquivo);
+            const largura = bitmap.width || bitmap.naturalWidth;
+            const altura = bitmap.height || bitmap.naturalHeight;
+            if (!largura || !altura) return arquivo;
+
+            const MAX_LADO = 1280;
+            const escala = Math.min(1, MAX_LADO / Math.max(largura, altura));
+            const w = Math.round(largura * escala);
+            const h = Math.round(altura * escala);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(bitmap, 0, 0, w, h);
+
+            let qualidade = 0.85;
+            let blob = await canvasParaBlob(canvas, 'image/webp', qualidade);
+            while (blob && blob.size > 150 * 1024 && qualidade > 0.45) {
+                qualidade -= 0.1;
+                blob = await canvasParaBlob(canvas, 'image/webp', qualidade);
+            }
+            if (!blob) return arquivo;
+            const nome = arquivo.name.replace(/\.[^.]+$/, '') + '.webp';
+            const otimizado = new File([blob], nome, { type: 'image/webp' });
+            return otimizado.size < arquivo.size ? otimizado : arquivo;
+        } catch (e) {
+            return arquivo;
+        }
+    }
+
     // Render preview de galeria nos modais de edição/adição
     function renderGaleriaPreview(container, galeriaArray, inputEl) {
         container.innerHTML = '';
@@ -198,13 +277,25 @@ document.addEventListener('DOMContentLoaded', () => {
             div.className = 'galeria-item';
             div.style.position = 'relative';
 
-            const media = document.createElement(item.tipo === 'video' ? 'video' : 'img');
-            media.src = item.url;
-            media.alt = 'Preview';
-            if (item.tipo === 'video') {
-                media.muted = true;
-                media.playsInline = true;
-                media.loop = true;
+            const embed = item.tipo === 'video' ? extrairVideoEmbed(item.url) : null;
+            let media;
+            if (embed) {
+                media = document.createElement('img');
+                media.alt = 'Vídeo';
+                if (embed.thumb) {
+                    media.src = embed.thumb;
+                } else {
+                    media.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 9%22%3E%3Crect width=%2216%22 height=%229%22 fill=%22%23000%22/%3E%3Cpath d=%22M6 3l5 1.5L6 6z%22 fill=%22%23fff%22/%3E%3C/svg%3E';
+                }
+            } else {
+                media = document.createElement(item.tipo === 'video' ? 'video' : 'img');
+                media.src = item.url;
+                media.alt = 'Preview';
+                if (item.tipo === 'video') {
+                    media.muted = true;
+                    media.playsInline = true;
+                    media.loop = true;
+                }
             }
             div.appendChild(media);
 
@@ -254,11 +345,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         for (const arquivo of arquivos) {
-            const url = URL.createObjectURL(arquivo);
-            const tipo = tipoArquivo(arquivo.name);
-            galeriaArray.push({ tipo, url, legenda: '', arquivo });
+            const otimizado = await otimizarImagem(arquivo);
+            const url = URL.createObjectURL(otimizado);
+            const tipo = tipoArquivo(otimizado.name);
+            galeriaArray.push({ tipo, url, legenda: '', arquivo: otimizado });
         }
         renderGaleriaPreview(previewContainer, galeriaArray, inputEl);
+    }
+
+    // Adiciona um vídeo por link (YouTube/Vimeo) na galeria
+    function adicionarVideoPorUrl(url, galeriaArray, previewContainer, inputEl) {
+        const link = (url || '').trim();
+        if (!link) return false;
+        if (!extrairVideoEmbed(link)) {
+            alert('Link de vídeo inválido. Use um link do YouTube ou Vimeo.');
+            return false;
+        }
+        if (galeriaArray.length >= MAX_GALERIA) {
+            alert(`Máximo de ${MAX_GALERIA} itens na galeria.`);
+            return false;
+        }
+        if (galeriaArray.some((item) => item.url === link)) {
+            alert('Este vídeo já está na galeria.');
+            return false;
+        }
+        galeriaArray.push({ tipo: 'video', url: link, legenda: '' });
+        renderGaleriaPreview(previewContainer, galeriaArray, inputEl);
+        return true;
     }
 
     // Enviar galeria para o servidor e retornar URLs
@@ -298,8 +411,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ===================== CAPA ===================== */
     // Envia a foto de capa para o servidor; devolve a URL relativa ou null
     async function uploadCapa(arquivo) {
+        const otimizado = await otimizarImagem(arquivo);
         const formData = new FormData();
-        formData.append('arquivo', arquivo);
+        formData.append('arquivo', otimizado);
         try {
             const resp = await fetch(`${SERVIDOR_URL}/upload-midia`, {
                 method: 'POST',
@@ -581,17 +695,33 @@ document.addEventListener('DOMContentLoaded', () => {
         if (videoExistente) videoExistente.remove();
 
         if (item.tipo === 'video') {
-            const v = document.createElement('video');
-            v.id = 'modal-video';
-            v.src = item.url;
-            v.controls = true;
-            v.playsInline = true;
-            v.style.maxWidth = '100%';
-            v.style.maxHeight = '100%';
-            v.style.objectFit = 'contain';
-            v.style.display = 'block';
-            modalImg.style.display = 'none';
-            modalImg.parentNode.insertBefore(v, modalImg.nextSibling);
+            const embed = extrairVideoEmbed(item.url);
+            if (embed) {
+                const f = document.createElement('iframe');
+                f.id = 'modal-video';
+                f.src = embed.embed;
+                f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                f.allowFullscreen = true;
+                f.style.width = '100%';
+                f.style.aspectRatio = '16 / 9';
+                f.style.maxHeight = '100%';
+                f.style.border = '0';
+                f.style.display = 'block';
+                modalImg.style.display = 'none';
+                modalImg.parentNode.insertBefore(f, modalImg.nextSibling);
+            } else {
+                const v = document.createElement('video');
+                v.id = 'modal-video';
+                v.src = item.url;
+                v.controls = true;
+                v.playsInline = true;
+                v.style.maxWidth = '100%';
+                v.style.maxHeight = '100%';
+                v.style.objectFit = 'contain';
+                v.style.display = 'block';
+                modalImg.style.display = 'none';
+                modalImg.parentNode.insertBefore(v, modalImg.nextSibling);
+            }
         } else {
             modalImg.src = item.url;
             modalImg.alt = item.legenda || '';
@@ -638,12 +768,20 @@ document.addEventListener('DOMContentLoaded', () => {
             thumb.className = 'galeria-thumb';
             thumb.title = item.legenda || '';
             if (item.tipo === 'video') {
-                const v = document.createElement('video');
-                v.src = item.url;
-                v.muted = true;
-                v.playsInline = true;
-                v.loop = true;
-                thumb.appendChild(v);
+                const embed = extrairVideoEmbed(item.url);
+                if (embed) {
+                    const img = document.createElement('img');
+                    img.src = embed.thumb || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 9%22%3E%3Crect width=%2216%22 height=%229%22 fill=%22%23000%22/%3E%3Cpath d=%22M6 3l5 1.5L6 6z%22 fill=%22%23fff%22/%3E%3C/svg%3E';
+                    img.alt = item.legenda || 'Vídeo';
+                    thumb.appendChild(img);
+                } else {
+                    const v = document.createElement('video');
+                    v.src = item.url;
+                    v.muted = true;
+                    v.playsInline = true;
+                    v.loop = true;
+                    thumb.appendChild(v);
+                }
             } else {
                 const img = document.createElement('img');
                 img.src = item.url;
@@ -990,15 +1128,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = document.querySelector('.lightbox-content');
         content.innerHTML = '';
         if (tipo === 'video') {
-            const v = document.createElement('video');
-            v.src = src;
-            v.controls = true;
-            v.playsInline = true;
-            v.style.maxWidth = '100%';
-            v.style.maxHeight = '85vh';
-            v.style.objectFit = 'contain';
-            v.style.display = 'block';
-            content.appendChild(v);
+            const embed = extrairVideoEmbed(src);
+            if (embed) {
+                const f = document.createElement('iframe');
+                f.src = embed.embed;
+                f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                f.allowFullscreen = true;
+                f.style.width = '80vw';
+                f.style.maxWidth = '960px';
+                f.style.aspectRatio = '16 / 9';
+                f.style.border = '0';
+                f.style.display = 'block';
+                content.appendChild(f);
+            } else {
+                const v = document.createElement('video');
+                v.src = src;
+                v.controls = true;
+                v.playsInline = true;
+                v.style.maxWidth = '100%';
+                v.style.maxHeight = '85vh';
+                v.style.objectFit = 'contain';
+                v.style.display = 'block';
+                content.appendChild(v);
+            }
         } else {
             const img = document.createElement('img');
             img.src = src;
@@ -1131,6 +1283,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     editGaleriaInput.onchange = (e) => processarArquivos(e.target.files, galeriaEdicao, editGaleriaPreview, editGaleriaInput);
     addGaleriaInput.onchange = (e) => processarArquivos(e.target.files, galeriaAdicao, addGaleriaPreview, addGaleriaInput);
+    if (editAddVideoBtn) editAddVideoBtn.onclick = () => {
+        if (adicionarVideoPorUrl(editUrlVideo.value, galeriaEdicao, editGaleriaPreview, editGaleriaInput)) editUrlVideo.value = '';
+    };
+    if (addAddVideoBtn) addAddVideoBtn.onclick = () => {
+        if (adicionarVideoPorUrl(addUrlVideo.value, galeriaAdicao, addGaleriaPreview, addGaleriaInput)) addUrlVideo.value = '';
+    };
 
     if (editCapa) editCapa.onchange = (e) => {
         const f = (e.target.files && e.target.files[0]) || null;

@@ -10,7 +10,7 @@ from email.policy import HTTP
 CATALOGO_PATH = os.path.join('produtos', 'catalogo.json')
 MIDIA_DIR = os.path.join('assets', 'midia')
 PORT = 8000
-MAX_FILE_SIZE = 100 * 1024 * 1024  # 100 MB
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
 ALLOWED_EXTENSIONS = {
     # Imagens
