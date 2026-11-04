@@ -1,0 +1,182 @@
+{
+  "Grok_version/PRODUTOS_LADE/prod/.github/workflows/ci.yml": {
+    "mtime": 1793301498.0,
+    "seen": 1793803043.0227075,
+    "ast_hash": "54ea69eb6d01231e188be9767cbee247",
+    "semantic_hash": "54ea69eb6d01231e188be9767cbee247"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/assets/js/app.js": {
+    "mtime": 1793301492.0,
+    "seen": 1793803043.0227125,
+    "ast_hash": "c4ec0d39fce3cc53d71c231d20b6280c",
+    "semantic_hash": "c4ec0d39fce3cc53d71c231d20b6280c"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/produtos/catalogo.json": {
+    "mtime": 1793302293.2334745,
+    "seen": 1793803043.0227153,
+    "ast_hash": "0698edb53ccac75fe7cdf79f3c77ba4a",
+    "semantic_hash": "0698edb53ccac75fe7cdf79f3c77ba4a"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/salvar.example.php": {
+    "mtime": 1793301268.0,
+    "seen": 1793803043.0227168,
+    "ast_hash": "ee270cd2036c6b5d36a1b2680ab725de",
+    "semantic_hash": "ee270cd2036c6b5d36a1b2680ab725de"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/scripts/atualizar_catalogo.py": {
+    "mtime": 1793301190.0,
+    "seen": 1793803043.0227182,
+    "ast_hash": "ce50adb533e211e63045b00bb66ea352",
+    "semantic_hash": "ce50adb533e211e63045b00bb66ea352"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/scripts/atualizar_imagens.py": {
+    "mtime": 1793301190.0,
+    "seen": 1793803043.0227194,
+    "ast_hash": "74d61c4cecfb7a8f21d0d58ac089f6e5",
+    "semantic_hash": "74d61c4cecfb7a8f21d0d58ac089f6e5"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/scripts/obsoletos/diagnostico.py": {
+    "mtime": 1793301196.0,
+    "seen": 1793803043.0227206,
+    "ast_hash": "dac736ac1ca6ff0a646140fb494d8aed",
+    "semantic_hash": "dac736ac1ca6ff0a646140fb494d8aed"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/scripts/validar_catalogo.py": {
+    "mtime": 1793301284.0,
+    "seen": 1793803043.0227213,
+    "ast_hash": "fb37c0f557da6f9dc546bd077e2346b3",
+    "semantic_hash": "fb37c0f557da6f9dc546bd077e2346b3"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/scripts/verificar_final.py": {
+    "mtime": 1793301190.0,
+    "seen": 1793803043.0227222,
+    "ast_hash": "ef23d31daf239d3da872d6fdcde1db10",
+    "semantic_hash": "ef23d31daf239d3da872d6fdcde1db10"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/scripts/verificar_imagens.py": {
+    "mtime": 1793301190.0,
+    "seen": 1793803043.022723,
+    "ast_hash": "04214b02eeb76b08a356ddc642057a98",
+    "semantic_hash": "04214b02eeb76b08a356ddc642057a98"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/servidor.py": {
+    "mtime": 1793301230.0,
+    "seen": 1793803043.0227242,
+    "ast_hash": "9091860377a1c33248c5e01dde731182",
+    "semantic_hash": "9091860377a1c33248c5e01dde731182"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/tests/galeria.test.js": {
+    "mtime": 1793301498.0,
+    "seen": 1793803043.022725,
+    "ast_hash": "0db557f9753752217e87f9a179467cce",
+    "semantic_hash": "0db557f9753752217e87f9a179467cce"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/upload.example.php": {
+    "mtime": 1793301268.0,
+    "seen": 1793803043.022726,
+    "ast_hash": "50cabeb6cc164f130232d40bdfc83f58",
+    "semantic_hash": "50cabeb6cc164f130232d40bdfc83f58"
+  },
+  "assets/js/app.js": {
+    "mtime": 1793801068.3501027,
+    "seen": 1793803043.022727,
+    "ast_hash": "2dbb22fc3eb636073e84144edbc74207",
+    "semantic_hash": "2dbb22fc3eb636073e84144edbc74207"
+  },
+  "atualizar_catalogo.py": {
+    "mtime": 1793279018.7889445,
+    "seen": 1793803043.022728,
+    "ast_hash": "6b4650a33a6b910abc1c6a62c96e40d6",
+    "semantic_hash": "6b4650a33a6b910abc1c6a62c96e40d6"
+  },
+  "atualizar_imagens.py": {
+    "mtime": 1793279747.0442023,
+    "seen": 1793803043.022729,
+    "ast_hash": "f0274089e8acf5e46eda0d81e1bd4956",
+    "semantic_hash": "f0274089e8acf5e46eda0d81e1bd4956"
+  },
+  "diagnostico.py": {
+    "mtime": 1793284895.8630095,
+    "seen": 1793803043.0227299,
+    "ast_hash": "71351e75a193c097a88d5bbac960479b",
+    "semantic_hash": "71351e75a193c097a88d5bbac960479b"
+  },
+  "dividir_estoque.py": {
+    "mtime": 1793399891.3175943,
+    "seen": 1793803043.0227308,
+    "ast_hash": "e3e8671bccd28683353e7d4ebb77230c",
+    "semantic_hash": "e3e8671bccd28683353e7d4ebb77230c"
+  },
+  "produtos/catalogo.json": {
+    "mtime": 1793797555.1876373,
+    "seen": 1793803043.0227318,
+    "ast_hash": "a3e90efe2663b3b1d1b097c9a15ade71",
+    "semantic_hash": "a3e90efe2663b3b1d1b097c9a15ade71"
+  },
+  "produtos/catalogo_backup_sem_cidade.json": {
+    "mtime": 1793399215.025245,
+    "seen": 1793803043.0227327,
+    "ast_hash": "ccfe246e373f0d19bf8fd5e76dd413ad",
+    "semantic_hash": "ccfe246e373f0d19bf8fd5e76dd413ad"
+  },
+  "salvar.example.php": {
+    "mtime": 1793298766.4398844,
+    "seen": 1793803043.0227334,
+    "ast_hash": "29e3d0015a7327df3d442ad4b9f7432d",
+    "semantic_hash": "29e3d0015a7327df3d442ad4b9f7432d"
+  },
+  "servidor.py": {
+    "mtime": 1793389956.5415058,
+    "seen": 1793803043.0227346,
+    "ast_hash": "5e6e2716602b168fc649ff40c297a8ea",
+    "semantic_hash": "5e6e2716602b168fc649ff40c297a8ea"
+  },
+  "verificar_final.py": {
+    "mtime": 1793279762.487194,
+    "seen": 1793803043.0227358,
+    "ast_hash": "f68c915084e808f688889919f72093b2",
+    "semantic_hash": "f68c915084e808f688889919f72093b2"
+  },
+  "verificar_imagens.py": {
+    "mtime": 1793279662.3248608,
+    "seen": 1793803043.0227365,
+    "ast_hash": "6142f40727f1a3939b6bf5ae87ecc7db",
+    "semantic_hash": "6142f40727f1a3939b6bf5ae87ecc7db"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/README.md": {
+    "mtime": 1793301620.0,
+    "seen": 1793803043.0227377,
+    "ast_hash": "fe50892a1a2d29a32fb9f363aead6216",
+    "semantic_hash": "fe50892a1a2d29a32fb9f363aead6216"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/index.html": {
+    "mtime": 1793301492.0,
+    "seen": 1793803043.0227387,
+    "ast_hash": "311f6a545a001524c49573f8ab2e0e79",
+    "semantic_hash": "311f6a545a001524c49573f8ab2e0e79"
+  },
+  "README.md": {
+    "mtime": 1793298775.2114513,
+    "seen": 1793803043.0227396,
+    "ast_hash": "a3d89f245bfe61d21deb2409b66950f1",
+    "semantic_hash": "a3d89f245bfe61d21deb2409b66950f1"
+  },
+  "index.html": {
+    "mtime": 1793796548.9963677,
+    "seen": 1793803043.0227404,
+    "ast_hash": "eb2c13895fea08851bd867ebc0f193d4",
+    "semantic_hash": "eb2c13895fea08851bd867ebc0f193d4"
+  },
+  "Grok_version/PRODUTOS_LADE/prod/produtos/imagens/1793297423672/01-86ec1107.jpg": {
+    "mtime": 1793302240.6882422,
+    "seen": 1793803043.0227413,
+    "ast_hash": "0ee200a9143af14c496d3122fef58696",
+    "semantic_hash": "0ee200a9143af14c496d3122fef58696"
+  },
+  "assets/midia/midia_1793797555_675f48b0.png": {
+    "mtime": 1793797555.1691067,
+    "seen": 1793803043.0227423,
+    "ast_hash": "705959a1f10f8d3845643c66ec0c710a",
+    "semantic_hash": "705959a1f10f8d3845643c66ec0c710a"
+  }
+}

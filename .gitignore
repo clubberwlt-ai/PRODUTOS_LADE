@@ -3,6 +3,14 @@ produtos/backups/
 *.xlsx
 salvar.php
 
+# Clone aninhado da versão Grok (histórico preservado no remoto)
+.git_grok/
+
+# Bytecode Python e pacotes compactados
+__pycache__/
+*.pyc
+Grok_version/PRODUTOS_LADE.zip
+
 # Temporários e sistema
 *.tmp
 *.bak
