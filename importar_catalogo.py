@@ -124,6 +124,8 @@ def main():
             galeria = anterior.get('galeria')
             if galeria:
                 item['galeria'] = galeria
+            if anterior.get('destaque'):
+                item['destaque'] = True
         else:
             item['id'] = f'{base_id}_{len(itens)}'
             item['galeria'] = []

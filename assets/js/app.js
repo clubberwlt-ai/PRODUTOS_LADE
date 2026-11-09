@@ -607,6 +607,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return Number(m) || 0;
     }
 
+    function ehDestaque(p) {
+        return !!(p && p.destaque);
+    }
+
     function atualizarCategorias() {
         populateCategories(allProducts);
         populateAddCategorySelect();
@@ -638,7 +642,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
+            let starIcon = '';
+            if (ehDestaque(product)) {
+                starIcon = `
+                    <button class="star-badge featured" title="Remover destaque" aria-label="Remover destaque de ${product.Equipamento}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    </button>
+                `;
+            } else if (editMode) {
+                starIcon = `
+                    <button class="star-badge" title="Destacar" aria-label="Destacar ${product.Equipamento}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    </button>
+                `;
+            }
+
             card.innerHTML = `
+                ${starIcon}
                 ${editIcon}
                 <div class="product-card-image">
                     <img src="${imagemUrl}" alt="${product.Equipamento}">
@@ -893,6 +913,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const cidOk = !cid || String(p.Almoxarifado || '').split(';').map(s => s.trim()).includes(cid);
             return busca && catOk && cidOk;
         });
+
+        // Destacados primeiro (ordenação estável: mantém a ordem original dentro de cada grupo)
+        filtrados.sort((a, b) => (ehDestaque(b) ? 1 : 0) - (ehDestaque(a) ? 1 : 0));
 
         renderProducts(filtrados);
     }
@@ -1351,6 +1374,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!card) return;
         const idx = Number(card.dataset.index);
         if (Number.isNaN(idx) || idx < 0) return;
+        if (e.target.closest('.star-badge')) {
+            e.stopPropagation();
+            if (editMode) {
+                const p = allProducts[idx];
+                if (ehDestaque(p)) delete p.destaque;
+                else p.destaque = true;
+                salvarLocal();
+                filtrar();
+                salvarNoServidor();
+            }
+            return;
+        }
         if (e.target.closest('.edit-badge')) {
             e.stopPropagation();
             abrirEdicao(idx);
