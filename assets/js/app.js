@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('=== CATÁLOGO LADE — Galeria + Cidades ===');
+    console.log('=== CATÁLOGO LADE — Galeria + Almoxarifados ===');
 
     const SERVIDOR_URL = 'http://localhost:8000';
 
@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let editMode = false;
     let editingIndex = null;
     let itemParaApagarIndex = null;
-    let cidades = ['Cuiabá', 'Sorriso']; // cidades padrão
-    let cidadeSelecionada = 'Cuiabá'; // cidade padrão ao abrir a página
+    let cidades = ['AMX LADE SOM', 'AMX MUSIVA', 'AMX SORRISO', 'AMX ODARA']; // almoxarifados padrão
+    let cidadeSelecionada = 'AMX LADE SOM'; // almoxarifado padrão ao abrir a página
     let midiasCarousel = [];   // mídias unificadas do modal (capa + galeria)
     let midiaAtualIndex = 0;
     let galeriaEdicao = []; // arquivos da galeria em edição
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let capaEdicao = null;  // arquivo de capa selecionado na edição
     let capaAdicao = null;  // arquivo de capa selecionado na adição
     const STORAGE_KEY = 'lade_catalogo_v1';
-    const CIDADES_KEY = 'lade_cidades_v1';
+    const CIDADES_KEY = 'lade_almoxarifados_v1';
     const MAX_GALERIA = 5;
 
     /* ===================== HELPERS MODAL ===================== */
@@ -145,17 +145,29 @@ document.addEventListener('DOMContentLoaded', () => {
         loading.classList.add('hidden');
     }
 
+    const ALMOX_PADRAO = ['AMX LADE SOM', 'AMX MUSIVA', 'AMX SORRISO', 'AMX ODARA'];
+
     function carregarCidades() {
         const salvo = localStorage.getItem(CIDADES_KEY);
         if (salvo) {
             try {
                 cidades = JSON.parse(salvo);
-            } catch (e) { cidades = ['Cuiabá', 'Sorriso']; }
+            } catch (e) { cidades = [...ALMOX_PADRAO]; }
         } else {
-            cidades = ['Cuiabá', 'Sorriso'];
+            cidades = [...ALMOX_PADRAO];
         }
-        // Garante que Cuiabá esteja sempre
-        if (!cidades.includes('Cuiabá')) cidades.unshift('Cuiabá');
+        if (!Array.isArray(cidades)) cidades = [...ALMOX_PADRAO];
+        // Mescla os almoxarifados individuais presentes nos dados (ex.: itens em 2 locais)
+        allProducts.forEach(p => {
+            String(p.Almoxarifado || '').split(';').forEach(parte => {
+                const nome = parte.trim();
+                if (nome && !cidades.includes(nome)) cidades.push(nome);
+            });
+        });
+        // Garante os padrão
+        ALMOX_PADRAO.forEach(nome => {
+            if (!cidades.includes(nome)) cidades.push(nome);
+        });
     }
 
     function salvarCidades() {
@@ -163,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateCityFilter() {
-        cityFilter.innerHTML = '<option value="">Todas as cidades</option>';
+        cityFilter.innerHTML = '<option value="">Todos os almoxarifados</option>';
         cidades.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c;
@@ -549,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateAddCitySelect() {
         if (!addCidade) return;
         const atual = addCidade.value;
-        addCidade.innerHTML = '<option value="">Selecione a cidade</option>';
+        addCidade.innerHTML = '<option value="">Selecione o almoxarifado</option>';
         cidades.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c;
@@ -561,7 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateEditCitySelect(valor) {
         if (!editCidade) return;
-        editCidade.innerHTML = '<option value="">Selecione a cidade</option>';
+        editCidade.innerHTML = '<option value="">Selecione o almoxarifado</option>';
         cidades.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c;
@@ -582,8 +594,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function estoqueDe(p) {
         if (p == null) return 0;
         if (p.Estoque !== undefined && p.Estoque !== null && p.Estoque !== '') return Number(p.Estoque) || 0;
+        const atual = p['Qtd em estoque (09/11/2026)'];
+        if (atual !== undefined && atual !== null && atual !== '') return Number(atual) || 0;
         const q = p['Qtd máxima usada em um romaneio'];
         return Number(q) || 0;
+    }
+
+    function minimoDe(p) {
+        if (p == null) return null;
+        const m = p['Qtd mínima'];
+        if (m === undefined || m === null || m === '') return null;
+        return Number(m) || 0;
     }
 
     function atualizarCategorias() {
@@ -600,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const imagemUrl = extrairImagemUrl(product['URL da imagem / fonte']);
             const description = product['Descrição/Observações'] || '';
             const brand = product['Marca/Modelo'] || '';
-            const cidade = product.Cidade || '';
+            const cidade = product.Almoxarifado || '';
             const estoque = estoqueDe(product);
             const cidadeEstoque = cidade ? `${cidade} · ${estoque} un` : `${estoque} un`;
 
@@ -649,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="print-meta">
                     <span><strong>Categoria:</strong> ${product.Categoria || '—'}</span>
                     <span><strong>Unidade:</strong> ${product.Unidade || 'UN'}</span>
-                    <span><strong>Cidade:</strong> ${cidade || '—'}</span>
+                    <span><strong>Almoxarifado:</strong> ${cidade || '—'}</span>
                     <span><strong>Estoque:</strong> ${estoque} un</span>
                 </div>
                 <div class="print-footer">
@@ -759,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalBrand.textContent = product['Marca/Modelo'] || '';
         modalDescription.textContent = product['Descrição/Observações'] || 'Sem descrição adicional.';
         modalUnit.textContent = product.Unidade || 'UN';
-        if (modalCidade) modalCidade.textContent = product.Cidade || '—';
+        if (modalCidade) modalCidade.textContent = product.Almoxarifado || '—';
 
         // Miniaturas de TODAS as mídias (capa + galeria)
         if (modalGaleriaThumbs) modalGaleriaThumbs.innerHTML = '';
@@ -798,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         exibirMidia(0);
 
-        // Meta cidade
+        // Meta almoxarifado
         let metaCidade = document.getElementById('modal-meta-cidade');
         if (!metaCidade) {
             metaCidade = document.createElement('div');
@@ -806,7 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
             metaCidade.className = 'meta-item';
             const lbl = document.createElement('span');
             lbl.className = 'meta-label';
-            lbl.textContent = 'Cidade';
+            lbl.textContent = 'Almoxarifado';
             const val = document.createElement('span');
             val.id = 'modal-cidade';
             val.className = 'meta-value';
@@ -814,7 +835,7 @@ document.addEventListener('DOMContentLoaded', () => {
             metaCidade.appendChild(val);
             document.querySelector('.modal-meta').appendChild(metaCidade);
         }
-        document.getElementById('modal-cidade').textContent = product.Cidade || '—';
+        document.getElementById('modal-cidade').textContent = product.Almoxarifado || '—';
 
         // Meta estoque
         let metaEstoque = document.getElementById('modal-meta-estoque');
@@ -832,7 +853,28 @@ document.addEventListener('DOMContentLoaded', () => {
             metaEstoque.appendChild(val);
             document.querySelector('.modal-meta').appendChild(metaEstoque);
         }
-        document.getElementById('modal-estoque').textContent = `${estoqueDe(product)} un`;
+        const min = minimoDe(product);
+        document.getElementById('modal-estoque').textContent = min === null
+            ? `${estoqueDe(product)} un`
+            : `${estoqueDe(product)} un (mín. ${min})`;
+
+        // Meta código de estoque
+        let metaCodigo = document.getElementById('modal-meta-codigo');
+        if (!metaCodigo) {
+            metaCodigo = document.createElement('div');
+            metaCodigo.id = 'modal-meta-codigo';
+            metaCodigo.className = 'meta-item';
+            const lbl = document.createElement('span');
+            lbl.className = 'meta-label';
+            lbl.textContent = 'Código';
+            const val = document.createElement('span');
+            val.id = 'modal-codigo';
+            val.className = 'meta-value';
+            metaCodigo.appendChild(lbl);
+            metaCodigo.appendChild(val);
+            document.querySelector('.modal-meta').appendChild(metaCodigo);
+        }
+        document.getElementById('modal-codigo').textContent = product['Código estoque'] != null ? String(product['Código estoque']) : '—';
 
         abrirModal(modal);
     }
@@ -848,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 (p['Marca/Modelo'] && p['Marca/Modelo'].toLowerCase().includes(termo)) ||
                 (p['Descrição/Observações'] && p['Descrição/Observações'].toLowerCase().includes(termo));
             const catOk = !cat || p.Categoria === cat;
-            const cidOk = !cid || p.Cidade === cid;
+            const cidOk = !cid || String(p.Almoxarifado || '').split(';').map(s => s.trim()).includes(cid);
             return busca && catOk && cidOk;
         });
 
@@ -891,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editEquipamento.value = p.Equipamento || '';
         editMarca.value = p['Marca/Modelo'] || '';
         editCategoria.value = p.Categoria || '';
-        populateEditCitySelect(p.Cidade || '');
+        populateEditCitySelect(p.Almoxarifado || '');
         if (editEstoque) editEstoque.value = estoqueDe(p);
         editDescricao.value = p['Descrição/Observações'] || '';
         editUnidade.value = p.Unidade || '';
@@ -927,9 +969,11 @@ document.addEventListener('DOMContentLoaded', () => {
         p.Equipamento = editEquipamento.value.trim();
         p['Marca/Modelo'] = editMarca.value.trim();
         p.Categoria = editCategoria.value.trim();
-        p.Cidade = editCidade ? editCidade.value.trim() : (p.Cidade || '');
+        p.Almoxarifado = editCidade ? editCidade.value.trim() : (p.Almoxarifado || '');
         const estoqueVal = editEstoque ? Number(editEstoque.value) : NaN;
-        p['Qtd máxima usada em um romaneio'] = Number.isFinite(estoqueVal) && estoqueVal >= 0 ? estoqueVal : estoqueDe(p);
+        if (Number.isFinite(estoqueVal) && estoqueVal >= 0) {
+            p['Qtd em estoque (09/11/2026)'] = estoqueVal;
+        }
         p['Descrição/Observações'] = editDescricao.value.trim();
         p.Unidade = editUnidade.value.trim();
 
@@ -973,11 +1017,12 @@ document.addEventListener('DOMContentLoaded', () => {
             Equipamento: addEquipamento.value.trim(),
             'Marca/Modelo': addMarca.value.trim(),
             Categoria: categoria,
-            Cidade: addCidade.value.trim(),
-            'Qtd máxima usada em um romaneio': (() => {
+            Almoxarifado: addCidade.value.trim(),
+            'Qtd em estoque (09/11/2026)': (() => {
                 const v = addEstoque ? Number(addEstoque.value) : NaN;
                 return Number.isFinite(v) && v >= 0 ? v : 0;
             })(),
+            'Qtd máxima usada em um romaneio': 0,
             'Descrição/Observações': addDescricao.value.trim(),
             Unidade: addUnidade.value.trim() || 'UN',
             'URL da imagem / fonte': '',
@@ -1005,8 +1050,8 @@ document.addEventListener('DOMContentLoaded', () => {
             p.galeria = novaGaleria;
 
             allProducts.push(p);
-            if (p.Cidade && !cidades.includes(p.Cidade)) {
-                cidades.push(p.Cidade);
+            if (p.Almoxarifado && !cidades.includes(p.Almoxarifado)) {
+                cidades.push(p.Almoxarifado);
                 salvarCidades();
                 populateCityFilter();
                 populateAddCitySelect();
@@ -1098,7 +1143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nome = novaCidadeInput.value.trim();
         if (!nome) return;
         if (cidades.includes(nome)) {
-            alert('Esta cidade já existe.');
+            alert('Este almoxarifado já existe.');
             return;
         }
         cidades.push(nome);
@@ -1106,7 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         novaCidadeInput.value = '';
         populateCityFilter();
         renderCidadesLista();
-        mostrarToast('Cidade adicionada!');
+        mostrarToast('Almoxarifado adicionado!');
     }
 
     /* ===================== LIGHTBOX ===================== */
@@ -1251,7 +1296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         populateAddCategorySelect();
         populateAddCitySelect();
-        if (addCidade && cidades.includes('Cuiabá')) addCidade.value = 'Cuiabá';
+        if (addCidade && cidades.includes('AMX LADE SOM')) addCidade.value = 'AMX LADE SOM';
         if (addCategoriaNova) {
             addCategoriaNova.value = '';
             addCategoriaNova.classList.add('hidden');
